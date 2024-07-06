@@ -7,6 +7,7 @@ def get_mask_card_number(card_num: str) -> str:
     num_list[new_len - 15] = card_num_mask[new_len - 15] + " "
     card_num_masked = "".join(num_list)
 
+
     return card_num_masked
 
 
@@ -19,3 +20,4 @@ def get_mask_account(acc_num: str) -> str:
         acc_num_masked = "Неизвестный отправитель"
 
     return acc_num_masked
+
