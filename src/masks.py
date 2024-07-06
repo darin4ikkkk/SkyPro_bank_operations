@@ -7,7 +7,6 @@ def get_mask_card_number(card_num: str) -> str:
     num_list[new_len - 15] = card_num_mask[new_len - 15] + " "
     card_num_masked = "".join(num_list)
 
-
     return card_num_masked
 
 
