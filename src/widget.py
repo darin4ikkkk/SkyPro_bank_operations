@@ -1,6 +1,6 @@
 from datetime import date
 
-from masks import get_mask_account, get_mask_card_number
+from src.masks import get_mask_account, get_mask_card_number
 
 
 def mask_account_card(card_or_acc_num: str) -> str:
@@ -13,6 +13,8 @@ def mask_account_card(card_or_acc_num: str) -> str:
 
 def get_date(orig_date: str) -> str:
     """Форматирует дату"""
+    if len(orig_date) == 0:
+        return 'Дата отсутствует'
     thedate = date.fromisoformat(orig_date[:10])
     date_formatted = thedate.strftime("%d.%m.%Y")  # День Месяц Год
     return date_formatted
