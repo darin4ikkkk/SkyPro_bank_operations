@@ -1,4 +1,10 @@
-transactions = (
+from src.generators import filter_by_currency, transaction_descriptions, card_number_generator
+import pytest
+
+
+@pytest.fixture
+def transactions_fixture():
+    transactions = (
     [
         {
             "id": 939719570,
@@ -75,45 +81,65 @@ transactions = (
             "from": "Visa Platinum 1246377376343588",
             "to": "Счет 14211924144426031657"
         }
-    ]
-)
+    ])
+    return transactions
 
 
-def filter_by_currency(transactions_list, currency):
-    if len(transactions_list) > 0:
-        filtered_transactions = filter(
-            lambda transactions_list: transactions_list.get("operationAmount").get("currency").get("code") == currency, transactions_list)
-        if len(list(filtered_transactions)) > 0:
-            return filtered_transactions
-        else:
-            return "Данной валюты нет в списке"
-    else:
-        return "Список пустой!"
+def test_filter_by_currency(transactions_fixture):
+    result = filter_by_currency(transactions_fixture, 'USD')
+    assert next(result) == {
+            "id": 939719570,
+            "state": "EXECUTED",
+            "date": "2018-06-30T02:08:58.425572",
+            "operationAmount": {
+                "amount": "9824.07",
+                "currency": {
+                    "name": "USD",
+                    "code": "USD"
+                }
+            } }
 
 
-def transaction_descriptions(transactions_list):
-    for element in transactions_list:
-        yield element.get("description")
+@pytest.mark.parametrize("transactions, currency, expected", [(
+        [{
+            "id": 939719570,
+            "state": "EXECUTED",
+            "date": "2018-06-30T02:08:58.425572",
+            "operationAmount": {
+                "amount": "9824.07",
+                "currency": {
+                    "name": "USD",
+                    "code": "USD"
+                }
+            },
+            "description": "Перевод организации",
+            "from": "Счет 75106830613657916952",
+            "to": "Счет 11776614605963066702"
+        },
+        {
+            "id": 142264268,
+            "state": "EXECUTED",
+            "date": "2019-04-04T23:20:05.206878",
+            "operationAmount": {
+                "amount": "79114.93",
+                "currency": {
+                    "name": "USD",
+                    "code": "USD"
+                }
+            },
+            "description": "Перевод со счета на счет",
+            "from": "Счет 19708645243227258542",
+            "to": "Счет 75651667383060284188"
+        }
+        ], "EUR", "Данной валюты нет в списке"), ([], "RUB", "Список пустой!")])
+def test_filter_by_currency_exceptions(transactions, currency, expected):
+    result = filter_by_currency(transactions, currency)
+    assert result == expected
 
 
-'''
-descriptions = transaction_descriptions(transactions)
-for _ in range(5):
-    print(next(descriptions))
-'''
+def test_transaction_descriptions():
+    pass
 
 
-def card_number_generator(start, stop):
-    while start <= stop:
-        str_number = str(start)
-        while len(str_number) < 16:
-            str_number = '0' + str_number
-        formatted_card_number = str_number[0:4] + ' ' + str_number[4:8] + ' ' + str_number[8:12] + ' ' + str_number[12:]
-        yield formatted_card_number
-        start += 1
-
-
-'''
-for card_number in card_number_generator(1, 5):
-    print(card_number)
-'''
+def test_card_number_generator():
+    pass
