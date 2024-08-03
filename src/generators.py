@@ -83,7 +83,7 @@ def filter_by_currency(transactions_list, currency):
     if len(transactions_list) > 0:
         filtered_transactions = filter(
             lambda transactions_list: transactions_list.get("operationAmount").get("currency").get("code") == currency, transactions_list)
-        if len(list(filtered_transactions)) > 0:
+        if filtered_transactions:
             return filtered_transactions
         else:
             return "Данной валюты нет в списке"
