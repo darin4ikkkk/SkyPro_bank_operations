@@ -107,4 +107,3 @@ def card_number_generator(start, stop):
         formatted_card_number = str_number[0:4] + ' ' + str_number[4:8] + ' ' + str_number[8:12] + ' ' + str_number[12:]
         yield formatted_card_number
         start += 1
-
