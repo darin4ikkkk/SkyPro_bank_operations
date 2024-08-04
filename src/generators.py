@@ -96,13 +96,6 @@ def transaction_descriptions(transactions_list):
         yield "Список пустой!"
 
 
-'''
-descriptions = transaction_descriptions(transactions)
-for _ in range(5):
-    print(next(descriptions))
-'''
-
-
 def card_number_generator(start, stop):
     while start <= stop:
         str_number = str(start)
@@ -111,9 +104,3 @@ def card_number_generator(start, stop):
         formatted_card_number = str_number[0:4] + ' ' + str_number[4:8] + ' ' + str_number[8:12] + ' ' + str_number[12:]
         yield formatted_card_number
         start += 1
-
-
-'''
-for card_number in card_number_generator(1, 5):
-    print(card_number)
-'''
