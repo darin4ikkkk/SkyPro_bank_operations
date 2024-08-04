@@ -83,17 +83,17 @@ def filter_by_currency(transactions_list, currency):
     if len(transactions_list) > 0:
         filtered_transactions = filter(
             lambda transactions_list: transactions_list.get("operationAmount").get("currency").get("code") == currency, transactions_list)
-        if filtered_transactions:
-            return filtered_transactions
-        else:
-            return "Данной валюты нет в списке"
+        return filtered_transactions
     else:
         return "Список пустой!"
 
 
 def transaction_descriptions(transactions_list):
-    for element in transactions_list:
-        yield element.get("description")
+    if len(transactions_list) > 0:
+        for element in transactions_list:
+            yield element.get("description")
+    else:
+        yield "Список пустой!"
 
 
 '''
