@@ -80,6 +80,7 @@ transactions = (
 
 
 def filter_by_currency(transactions_list, currency):
+    '''Фильтрует банковские операции по заданной валюте'''
     if len(transactions_list) > 0:
         filtered_transactions = filter(
             lambda transactions_list: transactions_list.get("operationAmount").get("currency").get("code") == currency, transactions_list)
@@ -89,6 +90,7 @@ def filter_by_currency(transactions_list, currency):
 
 
 def transaction_descriptions(transactions_list):
+    '''Выводит описание операций'''
     if len(transactions_list) > 0:
         for element in transactions_list:
             yield element.get("description")
@@ -96,14 +98,8 @@ def transaction_descriptions(transactions_list):
         yield "Список пустой!"
 
 
-'''
-descriptions = transaction_descriptions(transactions)
-for _ in range(5):
-    print(next(descriptions))
-'''
-
-
 def card_number_generator(start, stop):
+    '''Генерирует номера карт в заданном диапазоне'''
     while start <= stop:
         str_number = str(start)
         while len(str_number) < 16:
@@ -112,8 +108,3 @@ def card_number_generator(start, stop):
         yield formatted_card_number
         start += 1
 
-
-'''
-for card_number in card_number_generator(1, 5):
-    print(card_number)
-'''
