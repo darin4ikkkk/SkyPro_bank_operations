@@ -150,7 +150,6 @@ def test_transaction_descriptions_empty():
     result = list(transaction_descriptions([]))
     assert result == ["Список пустой!"]
 
-
 def test_card_number_generator():
     result = card_number_generator(1, 5)
     assert next(result) == '0000 0000 0000 0001'
