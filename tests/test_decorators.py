@@ -8,7 +8,7 @@ def my_function_console(x: int, y: int):
     """Функция для проверки работы декоратора log (вывод в консоль)"""
     return x/y
 
-filename = "/Users/darinasmirnova/PycharmProjects/SkyPro91/logs/my_log.txt"
+filename = "SkyPro91\logs\my_log.txt"
 @log(filename)
 def my_function_file(x: int, y: int):
     """Функция для проверки работы декоратора log (запись в файл)"""
