@@ -1,5 +1,6 @@
 import logging
 
+"""logging"""
 logging.basicConfig(
     level = logging.INFO,
     format = "%(levelname)s: %(filename)s: %(funcName)s %(lineno)s: %(asctime)s - %(message)s",
